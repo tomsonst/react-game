@@ -1,0 +1,27 @@
+.field-game {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px auto;
+}
+
+.item {
+  width: 162px;
+  height: 163px;
+  background-color: blueviolet;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  font-size: 190px;
+  transition: 0.3s;
+}
+
+.addItem {
+  font-size: 100px;
+}
+
+.item:hover {
+  opacity: 0.5;
+}
