@@ -15,6 +15,7 @@ export default class App extends React.Component {
     this.state = {
       arrElements: ['', '', '', '', '', '', '', '', ''],
       playerX: true,
+      playerFirstX: true,
       winGame: false,
       settingsPage: false,
       pause: true,
@@ -31,7 +32,6 @@ export default class App extends React.Component {
   }
   
   addValueElement = (elem, index) => {
-    console.log(this.state.musicOn)
     this.setState((state) => {
       let newArr;
       if(elem === '' && this.state.winGame === false){
@@ -40,7 +40,7 @@ export default class App extends React.Component {
         } else {
           newArr = [...state.arrElements.slice(0, index), 'O', ...state.arrElements.slice(index + 1)];
         }
-        const Item = document.getElementById(`${index}`);
+        const Item = document.getElementById(`${index}`);    
         Item.classList.add('addItem');
         if(this.state.soundOn){
           this.audio.play()
@@ -53,11 +53,16 @@ export default class App extends React.Component {
   }
 
   newGame = () => {
+    const items = document.querySelectorAll('.addItem');
+    for(let i = 0; i < items.length; i++){
+      items[i].classList.remove('addItem')
+    }
+    let player = this.state.playerFirstX ? true : false;
     this.setState((state) => {
       return {
         arrElements: ['', '', '', '', '', '', '', '', ''],
         classItem: 'item',
-        playerX: true,
+        playerX: player,
         winGame: false
       }
     })
@@ -96,19 +101,35 @@ export default class App extends React.Component {
   }
 
   changeMusicOn = () => {
-    if(this.state.musicOn){
-      console.log(this.state.musicOn)
-      this.music.pause();
-    }
     this.setState((state) => {
       return {musicOn: !state.musicOn}
     });
+    console.log(this.state.musicOn)
+    setTimeout(() => { this.playMusic(); }, 1);
   }
 
   changeSoundOn = () => {
     this.setState((state) => {
       return {soundOn: !state.soundOn}
     });
+  }
+
+  changePlayerX = () => {
+    this.setState((state) => {
+      return {
+        playerX: !state.playerX,
+        playerFirstX: !state.playerFirstX}
+    });
+  }
+
+  getStateLocalStorage = () => {
+    this.setState((state) => {
+      if(localStorage.getItem('') !== null){
+        return {
+          arrElements: localStorage.getItem('arrElements')
+        }
+      }
+    })
   }
 
   componentDidMount() {
@@ -134,22 +155,30 @@ export default class App extends React.Component {
     }
   }
 
+  AddSettings =() => {
+    if(this.state.settingsPage) {
+      return <Settings musicOn={this.state.musicOn}
+      soundOn={this.state.soundOn}
+      playerX={this.state.playerX}
+      playerFirstX={this.state.playerFirstX}
+      changeMusicOn={this.changeMusicOn}
+      changeSoundOn={this.changeSoundOn}
+      changePlayerX={this.changePlayerX}/>
+    }
+    return null
+  }
+
   render() {
     return (
       <div className="App" onClick={this.playMusic}>
         <HeadApp newGame={this.newGame}
                  changeSettingsPage={this.changeSettingsPage} />
-        {this.state.settingsPage ? 
-        <Settings musicOn={this.state.musicOn}
-                  soundOn={this.state.soundOn}
-                  changeMusicOn={this.changeMusicOn}
-                  changeSoundOn={this.changeSoundOn}/> :
         <FieldGame 
         arrElements ={this.state.arrElements}
         playerX ={this.state.playerX}
         winGame ={this.state.winGame}
-        addValueElement ={this.addValueElement} />
-        }
+        addValueElement ={this.addValueElement} 
+        AddSettings ={this.AddSettings}/>
         <WhoPlay playerX ={this.state.playerX}
                  winGame ={this.state.winGame} 
                  seconds ={this.state.seconds}

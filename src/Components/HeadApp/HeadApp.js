@@ -14,7 +14,7 @@ export default class Statistic extends React.Component{
       <div className = "wrap-statistic">
         <button className="btn-new-game" onClick={this.props.newGame}>New Game</button>
         <button className="btn-settings"
-        onClick= {() => this.props.changeSettingsPage()}>Settings</button>
+        onClick= {this.props.changeSettingsPage}>Settings</button>
         <button className="btn-score">Score</button>
       </div>
     )

@@ -19,6 +19,7 @@ export default class FieldGame extends React.Component {
           {this.props.arrElements.map((elem, index) => (
             <ItemField elem={elem} index={index} key={index} addValueElement ={this.props.addValueElement} />
           ))}
+          <this.props.AddSettings />
       </div>
     );
   }

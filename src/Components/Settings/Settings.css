@@ -1,6 +1,7 @@
 .settings {
-  width: 500px;
-  height: 500px;
+  position: absolute;
+  width: 498px;
+  height: 502px;
   flex-direction: column;
   display: flex;
   justify-content: space-evenly;
@@ -20,4 +21,11 @@
 
 .settings-value:hover {
   transform: scale(1.2);
+}
+
+@media screen and (max-width: 500px) {
+  .settings {
+    width: 300px;
+    height: 300px;
+  }
 }
