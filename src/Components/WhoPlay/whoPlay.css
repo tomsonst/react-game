@@ -1,0 +1,9 @@
+.status-player, .time-game {
+  font-size: 16px;
+  font-family: Tahoma;
+}
+
+.statistic {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,22 @@
+.wrap-statistic {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  margin-bottom: 15px;
+  font-family: Tahoma;
+}
+
+.btn-new-game, .btn-settings, .btn-score {
+  width: 85px;
+  padding: 4px;
+  font-size: 15px;
+  font-family: Tahoma;
+  border-radius: 4px;
+  outline: none;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.btn-new-game:hover, .btn-settings:hover, .btn-score:hover {
+  transform: scale(1.1);
+}
